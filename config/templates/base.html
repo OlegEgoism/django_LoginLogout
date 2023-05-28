@@ -7,22 +7,47 @@
 <div id="content">
     {% block content %}{% endblock %}
 </div>
+<ul class="menu">
+    <li>
+        <a href="{% url 'login:login' %}">Войти</a>
+    </li>
+    <li>
+        <a href="{% url 'login:logout' %}">Выйти</a>
+    </li>
+    <li>
+        <a href="{% url 'login:password_change' %}">Смена пароля</a>
+    </li>
+    <li>
+        <a href="{% url 'login:password_reset' %}">Сброс пароля</a>
+    </li>
+    <li>
+        <a href="{% url 'login:register' %}">Регистрация</a>
+    </li>
+    <li>
+        <a href="{% url 'login:edit' %}">Изменения</a>
+    </li>
 
-<div id="header">
-    <span class="logo">Закладки</span>
-    {% if request.user.is_authenticated %}
-    <ul class="menu">
-        <li {% if section == 'dashboard' %} class="selected" {% endif %}>
-            <a href="{% url 'login:dashboard' %}">Моя панель приборов</a>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">
+            {{ message|safe }}
+            <a class="close"></a>
         </li>
-        <li {% if section == 'images' %}class="selected" {% endif %}>
-            <a href="#">Изображений</a>
-        </li>
-        <li {% if section == 'people' %}class="selected" {% endif %}>
-            <a href="#">Люди</a>
-        </li>
+        {% endfor %}
     </ul>
     {% endif %}
-    <span class="user">
+
+    <div id="header">
+        <span class="logo">Закладки</span>
+        {% if request.user.is_authenticated %}
+        <ul class="menu">
+            <li>
+                <a href="{% url 'login:dashboard' %}">Моя панель приборов</a>
+            </li>
+        </ul>
+        {% endif %}
+        <span class="user">
+    </div>
 
 </html>
